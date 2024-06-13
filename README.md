@@ -3,4 +3,4 @@
 
 13.06.24
 
-Simple logic, but will try to implement some sort of user interface to make it interactive.
+Simple logic, but will try to implement some sort of user interface to make it more interactive and visual.
