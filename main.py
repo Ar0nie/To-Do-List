@@ -4,7 +4,7 @@ tasks = []
 
 # Individual function to handle appending to tasks.
 
-def addTask():
+def appendTask():
     task = input("Please enter your task: ")
     tasks.append(task)
     print("Task: '{task}', added to the list")
@@ -18,11 +18,11 @@ def listTasks():
         print("\n")
         print("Current Tasks:")
         for index, task in enumerate(tasks):
-            print(f"Task #{index}. {task}")
+            print(f"Task :{index} {task}")
 
 # A simple function that will call pop on the index placement that we have called for removal of a task.
 
-def deleteTask():
+def popTask():
     listTasks()
     try:
         print("Select wich task you wish to delete:")
@@ -54,9 +54,9 @@ if __name__ == "__main__":
         choice = input("Enter your choice: ")
 
         if (choice == "1"):
-            addTask()
+            appendTask()
         elif(choice == "2"):
-            deleteTask()
+            popTask()
         elif(choice == "3"):
             listTasks()
         elif(choice == "4"):
