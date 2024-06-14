@@ -4,3 +4,7 @@
 13.06.24
 
 Simple logic, but will try to implement some sort of user interface to make it more interactive and visual.
+
+14.06.24
+
+Consider adding a saving feature, that will write what you have written to a .txt.
