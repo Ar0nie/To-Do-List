@@ -1,67 +1,47 @@
-# Create an array to contain all of the tasks, in this case a series of strings.
+import tkinter as tk
+from tkinter import simpledialog, messagebox
 
 tasks = []
 
-# Individual function to handle appending to tasks.
+def add_task():
+    task = simpledialog.askstring("Input", "Please enter your task:")
+    if task:
+        tasks.append(task)
+        listbox.insert(tk.END, task)
 
-def appendTask():
-    task = input("Please enter your task: ")
-    tasks.append(task)
-    print("Task: '{task}', added to the list")
-
-# A simple function that lists out all the contents of tasks.
-
-def listTasks():
-    if not tasks:
-        print("There are not tasks currently.")
-    else:
-        print("\n")
-        print("Current Tasks:")
-        for index, task in enumerate(tasks):
-            print(f"Task :{index} {task}")
-
-# A simple function that will call pop on the index placement that we have called for removal of a task.
-
-def popTask():
-    listTasks()
+def delete_task():
     try:
-        print("Select wich task you wish to delete:")
-        taskToDelete = int(input("Enter the # you want to delete: "))
-        if taskToDelete >= 0 and taskToDelete < len(tasks):
-            tasks.pop(taskToDelete)
-            print(f"Task #{taskToDelete}, was removed")
-        else:
-            print(f"Task #{taskToDelete} number not found")
+        selected_task_index = listbox.curselection()[0]
+        tasks.pop(selected_task_index)
+        listbox.delete(selected_task_index)
+    except IndexError:
+        messagebox.showwarning("Warning", "No task selected")
 
-    except:
-        print("Invalid input. Please provide a valid input")
+def list_tasks():
+    listbox.delete(0, tk.END)
+    for task in tasks:
+        listbox.insert(tk.END, task)
 
-# The "main" function.
+root = tk.Tk()
+root.title("To-Do List")
+root.geometry("400x300")
 
-if __name__ == "__main__":
-    # Create a loop to run the app.
-    print("Welcome!")
-    
-    while True:
-        print("\n")
-        print("Please select an option.")
-        print("-------------------------")
-        print("1. Add a task")
-        print("2. Delete a task")
-        print("3. List tasks")
-        print("4. Quit")
+frame = tk.Frame(root)
+frame.pack(pady=10)
 
-        choice = input("Enter your choice: ")
+listbox = tk.Listbox(frame, width=50, height=10)
+listbox.pack(side=tk.LEFT, fill=tk.BOTH)
 
-        if (choice == "1"):
-            appendTask()
-        elif(choice == "2"):
-            popTask()
-        elif(choice == "3"):
-            listTasks()
-        elif(choice == "4"):
-            break
-        else:
-            print("Invalid input. Please provide a valid input.")
+scrollbar = tk.Scrollbar(frame)
+scrollbar.pack(side=tk.RIGHT, fill=tk.BOTH)
 
-    print("Goodbye")
+listbox.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=listbox.yview)
+
+add_task_button = tk.Button(root, text="Add Task", command=add_task)
+add_task_button.pack(pady=5)
+
+delete_task_button = tk.Button(root, text="Delete Task", command=delete_task)
+delete_task_button.pack(pady=5)
+
+root.mainloop()
